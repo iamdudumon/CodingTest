@@ -5,11 +5,12 @@ input = sys.stdin.readline
 
 n = int(input().rstrip())
 m = int(input().rstrip())
-graph = [[] for _ in range(n + 1)]
+graph = [[1e9 for _ in range(n + 1)] for _ in range(n + 1)]
 
 for _ in range(m):
     start, end, cost = map(int, input().rstrip().split())
-    graph[start].append((end, cost))
+    graph[start][end] = min(graph[start][end], cost)
+
 start, end = map(int, input().rstrip().split())
 table = [1e9] * (n + 1)
 table[start] = 0
@@ -21,7 +22,7 @@ while heap:
     if table[node] < cost:
         continue
 
-    for i, c in graph[node]:
+    for i, c in enumerate(graph[node]):
         if table[i] > cost + c:
             table[i] = cost + c
             heapq.heappush(heap, [table[i], i])
