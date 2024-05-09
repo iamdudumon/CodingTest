@@ -2,12 +2,6 @@ import sys
 
 input = sys.stdin.readline
 
-def cp_set(sett):
-    cp = set()
-    for s in sett:
-        cp.add(s)
-    return cp
-
 n, m = map(int, input().split())
 trues = set(list(map(int, input().split()))[1:])
 if len(trues) == 0:
@@ -25,7 +19,7 @@ for _ in range(m):
                 partys[p].add(i)
 
 while True:
-    cp = cp_set(trues)
+    cp = trues.copy()
     for t in trues:
         for p in partys[t]:
             cp.add(p)
@@ -33,13 +27,10 @@ while True:
         break
     trues = cp
 
-cnt = 0
+cnt = len(members)
 for mem in members:
-    flag = True
     for m in mem:
         if m in trues:
-            flag = False
+            cnt-=1
             break
-    if flag:
-        cnt+=1
 print(cnt)
