@@ -1,15 +1,14 @@
 from sys import stdin
-import copy
 
 input = stdin.readline
 
 n = int(input())
 line = list(map(int, input().split()))
 
-dp_max = copy.deepcopy(line)
-dp_min = copy.deepcopy(line)
-dp_max_pre = copy.deepcopy(line)
-dp_min_pre = copy.deepcopy(line)
+dp_max = line.copy()
+dp_min = line.copy()
+dp_max_pre = line.copy()
+dp_min_pre = line.copy()
 
 for i in range(1, n):
     line = list(map(int, input().split()))
