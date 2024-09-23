@@ -15,7 +15,7 @@ def move(n, i):
     else:
         return n + 1
 
-def bfs(N):
+def bfs(N, K):
 	deq = deque()
 	deq.append((N, 0))
 
@@ -23,15 +23,15 @@ def bfs(N):
 		num, time = deq.popleft()
 		if num == K:
 			return visited[num]
-        
+
 		for i in range(3):
 			next = move(num, i)
 			if 0 <= next <= 100000 and visited[next] == 1000000:
 				if i == 0:
-						visited[next] = min(visited[next], time)
+						visited[next] = time
 						deq.appendleft((next, visited[next]))
 				else:
-						visited[next] = min(visited[next], time + 1)
+						visited[next] = time + 1
 						deq.append((next, visited[next]))
 
-print(bfs(N))
+print(bfs(N, K))
