@@ -10,9 +10,9 @@ table = [0  for _ in range(N + 1)]
 for i in range(N):
 	works = list(map(int, input().split()))
 	costs[i + 1] = works[0]
-	for n in works[2:]:
+	table[i + 1] = len(works[2 :])
+	for n in works[2 :]:
 		graph[n].append(i + 1)	# 진출
-		table[i + 1] += 1
 
 dp = [0  for _ in range(N + 1)]
 que = deque()
