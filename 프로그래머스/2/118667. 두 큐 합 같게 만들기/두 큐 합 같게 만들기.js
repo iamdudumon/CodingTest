@@ -1,40 +1,32 @@
 function solution(queue1, queue2) {
-    let cnt = 0;
-    let Queue1 = 0, Queue2 = 0;
-    let halfS = 0;
+    let answer = 0;
+    let queue = [...queue1, ...queue2]
+    let qSum1 = queue1.reduce((pre, num) => pre + num),
+        qSum2 = queue2.reduce((pre, num) => pre + num);
     let idx1 = 0, idx2 = queue2.length;
+    let len = queue1.length * 2
     let temp;
-    let queue = []
-    let len = queue1.length + queue2.length
 
-    queue1.forEach((num1) => {
-        Queue1 += num1;
-        queue.push(num1)
-    });
-    queue2.forEach((num2)=> {
-        Queue2 += num2;
-        queue.push(num2)
-    });
-    
-    if ((Queue1 + Queue2) % 2 != 0)
+    if ((qSum1 + qSum2) % 2 != 0)
         return -1
-    halfS = (Queue1 + Queue2) / 2;
 
-    while(cnt <= len * 3){
-        if (Queue1 === halfS)
-            return cnt ;
+    while(answer <= len * 2) {
+        if (qSum1 === qSum2)
+            return answer;
 
-        if(Queue1 > halfS){
-            temp = queue[idx1++ % len];
-            Queue1 -= temp; 
-            // Queue2 += temp; 
-            cnt++;
+        if(qSum1 > qSum2){
+            temp = queue[idx1];
+            idx1 = (idx1 + 1) % len;
+            qSum1 -= temp; 
+            qSum2 += temp;
+            answer++;
         }
-        if(Queue1 < halfS){
-            temp = queue[idx2++ % len];
-            Queue1 += temp; 
-            // Queue2 -= temp; 
-            cnt ++;
+        if(qSum1 < qSum2){
+            temp = queue[idx2];
+            idx2 = (idx2 + 1) % len;
+            qSum1 += temp; 
+            qSum2 -= temp;
+            answer ++;
         }
     }
     return -1;
