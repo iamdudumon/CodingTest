@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(10**6)
 
 input = sys.stdin.readline
 
@@ -13,9 +14,9 @@ def solve(i, ii):
 	if dp[i][ii] != -1:
 		return dp[i][ii]
 	if r_cards[i] < l_cards[ii]:
-		dp[i][ii] = max(solve(i + 1, ii) + r_cards[i], solve(i, ii + 1),  solve(i + 1, ii + 1))
+		dp[i][ii] = solve(i + 1, ii) + r_cards[i]
 	else:
 		dp[i][ii] = max(solve(i, ii + 1), solve(i + 1, ii + 1))
 	return dp[i][ii]
 
-print(solve(0, 0))
+print(solve(1, 1))
