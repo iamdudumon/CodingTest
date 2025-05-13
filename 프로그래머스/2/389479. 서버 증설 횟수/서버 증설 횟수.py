@@ -9,7 +9,8 @@ def solution(players, m, k):
 
         if (current + 1) * m > p:
             continue
-        servers[i] = (p - (current + 1) * m) // m  + 1
+        servers[i] = p // m - current
+        # (p - (current + 1) * m) // m  + 1
         current += servers[i]
         answer += servers[i]
 
