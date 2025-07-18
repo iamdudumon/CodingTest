@@ -1,36 +1,30 @@
 import sys
-import heapq
 
 input = sys.stdin.readline
 
 N = int(input())
-solutions = list(map(int, input().split()))
+liqs = list(map(int, input().split()))
+answer = [2000000001, [-1, -1]]
 
-def binary(std, low, high, heap) :
-	if low > high:
-		return 
+def binary(liqs, key, low, high):
+    while low <= high:
+        mid = (low + high) // 2
+        std = liqs[key] + liqs[mid]
 
-	mid = (low + high) // 2
-	temp = std + solutions[mid]
-	heapq.heappush(heap, (abs(temp), mid))
-
-	if std + solutions[mid] < 0:
-		binary(std, mid + 1, high, heap)
-	elif std + solutions[mid] > 0:
-		binary(std, low, mid - 1, heap)
-
-
-min_so = 2000000001
-answer = (0, 0)
+        if answer[0] > abs(std):
+            answer[0] = abs(std)
+            answer[1][0] = liqs[key]
+            answer[1][1] = liqs[mid]
+        
+        if std > 0:
+            high = mid - 1
+        elif std < 0:
+            low = mid + 1
+        else:
+            break
+        
 
 for i in range(N - 1):
-	heap = []
-	binary(solutions[i], i + 1, N - 1, heap)
+    binary(liqs, i, i + 1, N - 1)
 
-	# print(heap)
-	pop = heapq.heappop(heap)
-	if min_so > pop[0]:
-		min_so = pop[0]
-		answer = (i, pop[1])
-
-print(solutions[answer[0]], solutions[answer[1]])
+print(*answer[1])
