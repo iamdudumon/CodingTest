@@ -15,13 +15,10 @@ while True:
     robots = [False] + robots[:-1]
     robots[-1] = False
 
-    for i in range(N - 1, -1, -1):
+    for i in range(N - 2, -1, -1):
         next = (start + 1 + i) % (2 * N)
         if robots[i]:
-            if i == N - 1:
-                robots[i] = 0
-            else:
-                if A[next] and robots[i + 1] == 0:
+           if A[next] and robots[i + 1] == 0:
                     robots[i] = 0
                     robots[i + 1] = 1
                     A[next]-=1
