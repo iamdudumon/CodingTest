@@ -4,13 +4,13 @@ input = sys.stdin.readline
 
 N = int(input())
 l = [tuple(map(int, input().split())) for _ in range(N)]
+dp = [0] * (N + 1)
 
-def communicate(t, s):
-	if t >= N:
-		return s
-	if (t + l[t][0]) > N:
-		return communicate(t + 1, s)
+for i in range(N - 1, -1, -1):
+	day = l[i][0]
+	if (i + day) > N:
+		dp[i] = dp[i + 1]
+		continue
+	dp[i] = max(dp[i + 1], l[i][1] + dp[i + day])
 
-	return max(communicate(t + 1, s), communicate(t + l[t][0], s + l[t][1]))
-
-print(communicate(0, 0))
+print(dp[0])
