@@ -1,5 +1,3 @@
-import heapq
-
 def solution(cap, n, deliveries, pickups):
     answer = 0
     del_sum = sum(deliveries)
@@ -37,5 +35,3 @@ def solution(cap, n, deliveries, pickups):
         answer+=(2 * (top + 1))
     
     return answer
-
-
