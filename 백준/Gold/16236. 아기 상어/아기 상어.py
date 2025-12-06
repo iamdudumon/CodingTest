@@ -20,11 +20,15 @@ def find_close_point(shark):
 	visited = [[False] * N for _ in range(N)]
 	visited[shark_pos[0]][shark_pos[1]] = True
 	close_pos_lst = []
+	min_d = N * N
 
 	while deq:
 		pos, d = deq.popleft()
+		if min_d < d:
+			continue
 		if 1 <= matrix[pos[0]][pos[1]] < shark_size:
 			close_pos_lst.append((pos, d))
+			min_d = d
 			continue
 
 		for m in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
@@ -43,6 +47,7 @@ def find_close_point(shark):
 
 answer = 0
 while True:
+	# print(shark)
 	nxt_shark = find_close_point(shark)
 	if shark[0][0] == nxt_shark[0][0] and shark[0][1] == nxt_shark[0][1]:
 		break
